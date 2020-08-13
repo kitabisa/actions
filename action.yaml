@@ -1,0 +1,15 @@
+name: "Setup Helmfile"
+author: "kitabisa"
+description: |-
+  Downloads, installs, and configures a Helmfile for the
+  worker. This will add the `helmfile` CLI command to the worker's $PATH.
+
+inputs:
+  milliseconds: # change this
+    required: true
+    description: "input description here"
+    default: "default value if applicable"
+
+runs:
+  using: "node12"
+  main: "setup-helmfile/dist/index.js"
