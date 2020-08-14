@@ -1,8 +1,8 @@
 {
   "name": "setup-helmfile",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "GitHub Action to setup Helmfile.",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -19,12 +19,12 @@
   },
   "keywords": [
     "actions",
-    "node",
     "setup",
+    "helm",
     "helmfile"
   ],
   "author": "kitabisa",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "dependencies": {
     "@actions/core": "^1.2.4",
     "@actions/exec": "^1.0.4",
