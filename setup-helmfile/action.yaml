@@ -5,10 +5,11 @@ description: |-
   worker. This will add the `helmfile` CLI command to the worker's $PATH.
 
 inputs:
-  milliseconds: # change this
-    required: true
-    description: "input description here"
-    default: "default value if applicable"
+  version:
+    description: |-
+      Version of the Helmfile to install. If unspecified, the default version will be installed.
+    default: "v0.125.7"
+    required: false
 
 runs:
   using: "node12"
