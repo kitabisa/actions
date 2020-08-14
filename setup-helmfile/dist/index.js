@@ -1414,7 +1414,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             setup_1.installHelmPlugins();
-            setup_1.installHelmfile(core.getInput('helmfile-version'));
+            setup_1.installHelmfile(core.getInput('version'));
         }
         catch (error) {
             core.setFailed(error.message);
