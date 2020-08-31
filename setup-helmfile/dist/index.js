@@ -1498,8 +1498,8 @@ const exec = __importStar(__webpack_require__(986));
 const tc = __importStar(__webpack_require__(533));
 function installHelmPlugins() {
     return __awaiter(this, void 0, void 0, function* () {
-        exec.exec('helm plugin install https://github.com/databus23/helm-diff');
-        exec.exec('helm plugin install https://github.com/zendesk/helm-secrets');
+        yield exec.exec('helm plugin install https://github.com/databus23/helm-diff');
+        yield exec.exec('helm plugin install https://github.com/zendesk/helm-secrets');
     });
 }
 exports.installHelmPlugins = installHelmPlugins;

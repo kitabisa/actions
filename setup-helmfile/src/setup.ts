@@ -6,8 +6,8 @@ import * as exec from '@actions/exec'
 import * as tc from '@actions/tool-cache'
 
 export async function installHelmPlugins(): Promise<void> {
-  exec.exec('helm plugin install https://github.com/databus23/helm-diff')
-  exec.exec('helm plugin install https://github.com/zendesk/helm-secrets')
+  await exec.exec('helm plugin install https://github.com/databus23/helm-diff')
+  await exec.exec('helm plugin install https://github.com/zendesk/helm-secrets')
 }
 
 export async function installHelmfile(version: string): Promise<void> {
