@@ -1,14 +1,14 @@
 name: "Setup Helmfile"
 author: "kitabisa"
 description: |-
-  Downloads, installs, and configures a Helmfile for the
-  worker. This will add the `helmfile` CLI command to the worker's $PATH.
+  Downloads, installs, and configures a Helmfile for the worker.
+  This will add the `helmfile` CLI command to the worker's $PATH.
 
 inputs:
   version:
     description: |-
       Version of the Helmfile to install. If unspecified, the default version will be installed.
-    default: "v0.125.7"
+    default: "v0.125.9"
     required: false
 
 runs:

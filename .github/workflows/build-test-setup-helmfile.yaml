@@ -1,10 +1,11 @@
-name: "Build-Test"
+name: "Build-Test setup-helmfile"
 on: # rebuild any PRs and main branch changes
   pull_request:
   push:
     branches:
       - master
-      - "releases/*"
+    paths:
+      - setup-helmfile/**
 
 jobs:
   build: # make sure build/ci work properly
@@ -22,5 +23,3 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./setup-helmfile
-        with:
-          milliseconds: 1000
