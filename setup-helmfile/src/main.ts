@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import { installHelmPlugins, installHelmfile } from './setup'
+import {installHelmPlugins, installHelmfile} from './setup'
 
 async function run(): Promise<void> {
   try {
