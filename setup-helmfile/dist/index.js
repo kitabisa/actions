@@ -1415,6 +1415,7 @@ function run() {
         try {
             setup_1.installHelmPlugins();
             setup_1.installHelmfile(core.getInput('version'));
+            core.info(`Helmfile installed`);
         }
         catch (error) {
             core.setFailed(error.message);
