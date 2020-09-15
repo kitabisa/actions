@@ -5,54 +5,35 @@ import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 import * as tc from '@actions/tool-cache'
 
-export async function installHelmPlugins(): Promise<void> {
-  try {
-    await exec.exec(
-      'helm plugin install https://github.com/databus23/helm-diff'
-    )
-    await exec.exec(
-      'helm plugin install https://github.com/zendesk/helm-secrets'
-    )
-  } catch (error) {
-    throw error
-  }
+export async function installHelmPlugins(): Promise<number> {
+  await exec.exec('helm plugin install https://github.com/databus23/helm-diff')
+  return await exec.exec(
+    'helm plugin install https://github.com/zendesk/helm-secrets'
+  )
 }
 
 export async function installHelmfile(version: string): Promise<void> {
-  try {
-    const baseUrl = 'https://github.com/roboll/helmfile/releases/download'
-    const downloadPath = await download(
-      `${baseUrl}/${version}/helmfile_linux_amd64`
-    )
-    await install(downloadPath, 'helmfile')
-  } catch (error) {
-    throw error
-  }
+  const baseUrl = 'https://github.com/roboll/helmfile/releases/download'
+  const downloadPath = await download(
+    `${baseUrl}/${version}/helmfile_linux_amd64`
+  )
+  core.info(`Downloaded to: ${downloadPath}`)
+  return await install(downloadPath, 'helmfile')
 }
 
 export async function download(url: string): Promise<string> {
-  try {
-    core.info(`Downloading from: ${url}`)
-    const downloadPath = await tc.downloadTool(url)
-    core.info(`Downloaded to: ${downloadPath}`)
-    return downloadPath
-  } catch (error) {
-    throw error
-  }
+  core.info(`Downloading from: ${url}`)
+  return await tc.downloadTool(url)
 }
 
 export async function install(
   downloadPath: string,
   filename: string
 ): Promise<void> {
-  try {
-    const binPath = `${os.homedir}/bin`
-    await io.mkdirP(binPath)
-    await io.cp(downloadPath, path.join(binPath, filename))
-    core.info(`Copy to: ${binPath}`)
-    await exec.exec('chmod', ['+x', `${binPath}/${filename}`])
-    core.addPath(binPath)
-  } catch (error) {
-    throw error
-  }
+  const binPath = `${os.homedir}/bin`
+  await io.mkdirP(binPath)
+  await io.cp(downloadPath, path.join(binPath, filename))
+  core.info(`Copy to: ${binPath}`)
+  await exec.exec('chmod', ['+x', `${binPath}/${filename}`])
+  return core.addPath(binPath)
 }

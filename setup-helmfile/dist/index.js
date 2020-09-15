@@ -1499,56 +1499,35 @@ const exec = __importStar(__webpack_require__(986));
 const tc = __importStar(__webpack_require__(533));
 function installHelmPlugins() {
     return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield exec.exec('helm plugin install https://github.com/databus23/helm-diff');
-            yield exec.exec('helm plugin install https://github.com/zendesk/helm-secrets');
-        }
-        catch (error) {
-            throw error;
-        }
+        yield exec.exec('helm plugin install https://github.com/databus23/helm-diff');
+        return yield exec.exec('helm plugin install https://github.com/zendesk/helm-secrets');
     });
 }
 exports.installHelmPlugins = installHelmPlugins;
 function installHelmfile(version) {
     return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const baseUrl = 'https://github.com/roboll/helmfile/releases/download';
-            const downloadPath = yield download(`${baseUrl}/${version}/helmfile_linux_amd64`);
-            yield install(downloadPath, 'helmfile');
-        }
-        catch (error) {
-            throw error;
-        }
+        const baseUrl = 'https://github.com/roboll/helmfile/releases/download';
+        const downloadPath = yield download(`${baseUrl}/${version}/helmfile_linux_amd64`);
+        core.info(`Downloaded to: ${downloadPath}`);
+        return yield install(downloadPath, 'helmfile');
     });
 }
 exports.installHelmfile = installHelmfile;
 function download(url) {
     return __awaiter(this, void 0, void 0, function* () {
-        try {
-            core.info(`Downloading from: ${url}`);
-            const downloadPath = yield tc.downloadTool(url);
-            core.info(`Downloaded to: ${downloadPath}`);
-            return downloadPath;
-        }
-        catch (error) {
-            throw error;
-        }
+        core.info(`Downloading from: ${url}`);
+        return yield tc.downloadTool(url);
     });
 }
 exports.download = download;
 function install(downloadPath, filename) {
     return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const binPath = `${os.homedir}/bin`;
-            yield io.mkdirP(binPath);
-            yield io.cp(downloadPath, path.join(binPath, filename));
-            core.info(`Copy to: ${binPath}`);
-            yield exec.exec('chmod', ['+x', `${binPath}/${filename}`]);
-            core.addPath(binPath);
-        }
-        catch (error) {
-            throw error;
-        }
+        const binPath = `${os.homedir}/bin`;
+        yield io.mkdirP(binPath);
+        yield io.cp(downloadPath, path.join(binPath, filename));
+        core.info(`Copy to: ${binPath}`);
+        yield exec.exec('chmod', ['+x', `${binPath}/${filename}`]);
+        return core.addPath(binPath);
     });
 }
 exports.install = install;
