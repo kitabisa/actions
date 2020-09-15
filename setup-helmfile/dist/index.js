@@ -1498,35 +1498,55 @@ const exec = __importStar(__webpack_require__(986));
 const tc = __importStar(__webpack_require__(533));
 function installHelmPlugins() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield exec.exec('helm plugin install https://github.com/databus23/helm-diff');
-        yield exec.exec('helm plugin install https://github.com/zendesk/helm-secrets');
+        try {
+            yield exec.exec('helm plugin install https://github.com/databus23/helm-diff');
+            yield exec.exec('helm plugin install https://github.com/zendesk/helm-secrets');
+        }
+        catch (error) {
+            throw error;
+        }
     });
 }
 exports.installHelmPlugins = installHelmPlugins;
 function installHelmfile(version) {
     return __awaiter(this, void 0, void 0, function* () {
-        const baseUrl = 'https://github.com/roboll/helmfile/releases/download';
-        const downloadPath = yield download(`${baseUrl}/${version}/helmfile_linux_amd64`);
-        yield install(downloadPath, 'helmfile');
+        try {
+            const baseUrl = 'https://github.com/roboll/helmfile/releases/download';
+            const downloadPath = yield download(`${baseUrl}/${version}/helmfile_linux_amd64`);
+            yield install(downloadPath, 'helmfile');
+        }
+        catch (error) {
+            throw error;
+        }
     });
 }
 exports.installHelmfile = installHelmfile;
 function download(url) {
     return __awaiter(this, void 0, void 0, function* () {
-        core.info(`Downloading from: ${url}`);
-        const downloadPath = yield tc.downloadTool(url);
-        core.info(`Downloaded to: ${downloadPath}`);
-        return downloadPath;
+        try {
+            core.info(`Downloading from: ${url}`);
+            const downloadPath = yield tc.downloadTool(url);
+            core.info(`Downloaded to: ${downloadPath}`);
+            return downloadPath;
+        }
+        catch (error) {
+            throw error;
+        }
     });
 }
 exports.download = download;
 function install(downloadPath, filename) {
     return __awaiter(this, void 0, void 0, function* () {
-        const binPath = `${os.homedir}/bin`;
-        yield io.mkdirP(binPath);
-        yield io.cp(downloadPath, path.join(binPath, filename));
-        yield exec.exec('chmod', ['+x', `${binPath}/${filename}`]);
-        core.addPath(binPath);
+        try {
+            const binPath = `${os.homedir}/bin`;
+            yield io.mkdirP(binPath);
+            yield io.cp(downloadPath, path.join(binPath, filename));
+            yield exec.exec('chmod', ['+x', `${binPath}/${filename}`]);
+            core.addPath(binPath);
+        }
+        catch (error) {
+            throw error;
+        }
     });
 }
 exports.install = install;
