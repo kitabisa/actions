@@ -49,6 +49,7 @@ export async function install(
     const binPath = `${os.homedir}/bin`
     await io.mkdirP(binPath)
     await io.cp(downloadPath, path.join(binPath, filename))
+    core.info(`Copy to: ${binPath}`)
     await exec.exec('chmod', ['+x', `${binPath}/${filename}`])
     core.addPath(binPath)
   } catch (error) {

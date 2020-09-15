@@ -1542,6 +1542,7 @@ function install(downloadPath, filename) {
             const binPath = `${os.homedir}/bin`;
             yield io.mkdirP(binPath);
             yield io.cp(downloadPath, path.join(binPath, filename));
+            core.info(`Copy to: ${binPath}`);
             yield exec.exec('chmod', ['+x', `${binPath}/${filename}`]);
             core.addPath(binPath);
         }
