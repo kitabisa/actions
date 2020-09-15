@@ -3,8 +3,8 @@ import {installHelmPlugins, installHelmfile} from './setup'
 
 async function run(): Promise<void> {
   try {
-    installHelmPlugins()
-    installHelmfile(core.getInput('version'))
+    await installHelmPlugins()
+    await installHelmfile(core.getInput('version'))
     core.info(`Helmfile installed`)
   } catch (error) {
     core.setFailed(error.message)

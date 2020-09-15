@@ -1413,8 +1413,8 @@ const setup_1 = __webpack_require__(429);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            setup_1.installHelmPlugins();
-            setup_1.installHelmfile(core.getInput('version'));
+            yield setup_1.installHelmPlugins();
+            yield setup_1.installHelmfile(core.getInput('version'));
             core.info(`Helmfile installed`);
         }
         catch (error) {
