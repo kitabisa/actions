@@ -15,6 +15,16 @@ inputs:
       Version of the SOPS to install. If unspecified, the default version will be installed.
     default: "v3.7.1"
     required: false
+  helm-diff-version:
+    description: |-
+      Version of the helm-diff to install. If unspecified, the default version will be installed.
+    default: "v3.1.3"
+    required: false
+  helm-secrets-version:
+    description: |-
+      Version of the helm-secrets to install. If unspecified, the default version will be installed.
+    default: "v3.6.1"
+    required: false
   additional-helm-plugins:
     description: |-
       A comma separated list of additional helm plugins to install. Should be a valid argument after `helm plugin install`.

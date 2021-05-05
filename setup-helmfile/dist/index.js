@@ -1499,9 +1499,11 @@ function run() {
         try {
             yield setup_1.installSops(core.getInput('sops-version'));
             core.info('SOPS installed');
+            const helmDiffVersion = core.getInput('helm-diff-version');
+            const helmSecretsVersion = core.getInput('helm-secrets-version');
             yield setup_1.installHelmPlugins([
-                'https://github.com/databus23/helm-diff',
-                'https://github.com/jkroepke/helm-secrets'
+                `https://github.com/databus23/helm-diff --version ${helmDiffVersion}`,
+                `https://github.com/jkroepke/helm-secrets --version ${helmSecretsVersion}`
             ]);
             const additionalPlugins = core.getInput('additional-helm-plugins');
             if (additionalPlugins !== '') {
@@ -1608,7 +1610,8 @@ function installHelmPlugins(plugins) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             for (const plugin of plugins) {
-                yield exec.exec(`helm plugin install ${plugin}`);
+                yield exec.exec('helm', ['plugin', 'install', plugin]);
+                yield exec.exec('helm', [plugin, '--help']);
             }
         }
         catch (error) {
@@ -1644,7 +1647,7 @@ function download(url) {
     });
 }
 exports.download = download;
-function install(downloadPath, filename) {
+function install(downloadPath, filename, validatationArgs = ['--version']) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const binPath = `${os.homedir}/bin`;
@@ -1653,6 +1656,7 @@ function install(downloadPath, filename) {
             core.info(`Copy to: ${binPath}`);
             yield exec.exec('chmod', ['+x', `${binPath}/${filename}`]);
             core.addPath(binPath);
+            yield exec.exec(filename, validatationArgs);
         }
         catch (error) {
             throw error;
