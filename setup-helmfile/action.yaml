@@ -8,7 +8,11 @@ inputs:
   version:
     description: |-
       Version of the Helmfile to install. If unspecified, the default version will be installed.
-    default: "v0.129.3"
+    default: "v0.138.7"
+    required: false
+  additional-helm-plugins:
+    description: |-
+      A comma separated list of additional helm plugins to install. Should be a valid argument after `helm plugin install`.
     required: false
 
 runs:

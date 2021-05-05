@@ -10,6 +10,10 @@ inputs:
       Version of the Helmfile to install. If unspecified, the default version will be installed.
     default: "v0.125.9"
     required: false
+  additional-helm-plugins:
+    description: |-
+      A comma separated list of additional helm plugins to install. Should be a valid argument after `helm plugin install`.
+    required: false
 
 runs:
   using: "node12"
