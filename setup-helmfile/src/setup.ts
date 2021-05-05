@@ -20,7 +20,7 @@ export async function installSops(version: string): Promise<void> {
 export async function installHelmPlugins(plugins: string[]): Promise<void> {
   try {
     for (const plugin of plugins) {
-      await exec.exec('helm', ['plugin', 'install', plugin])
+      await exec.exec(`helm plugin install ${plugin}`)
       await exec.exec('helm', [plugin, '--help'])
     }
   } catch (error) {
