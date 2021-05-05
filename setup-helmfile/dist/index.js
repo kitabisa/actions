@@ -1611,7 +1611,6 @@ function installHelmPlugins(plugins) {
         try {
             for (const plugin of plugins) {
                 yield exec.exec(`helm plugin install ${plugin}`);
-                yield exec.exec('helm', [plugin, '--help']);
             }
         }
         catch (error) {
