@@ -5,6 +5,18 @@ import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 import * as tc from '@actions/tool-cache'
 
+export async function installSops(version: string): Promise<void> {
+  try {
+    const baseUrl = 'https://github.com/mozilla/sops/releases/download'
+    const downloadPath = await download(
+      `${baseUrl}/${version}/sops-${version}.linux`
+    )
+    await install(downloadPath, 'sops')
+  } catch (error) {
+    throw error
+  }
+}
+
 export async function installHelmPlugins(plugins: string[]): Promise<void> {
   try {
     for (const plugin of plugins) {

@@ -1497,9 +1497,11 @@ const setup_1 = __webpack_require__(429);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            yield setup_1.installSops(core.getInput('sops-version'));
+            core.info('SOPS installed');
             yield setup_1.installHelmPlugins([
                 'https://github.com/databus23/helm-diff',
-                'https://github.com/zendesk/helm-secrets'
+                'https://github.com/jkroepke/helm-secrets'
             ]);
             const additionalPlugins = core.getInput('additional-helm-plugins');
             if (additionalPlugins !== '') {
@@ -1582,13 +1584,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.install = exports.download = exports.installHelmfile = exports.installHelmPlugins = void 0;
+exports.install = exports.download = exports.installHelmfile = exports.installHelmPlugins = exports.installSops = void 0;
 const os = __importStar(__webpack_require__(87));
 const path = __importStar(__webpack_require__(622));
 const io = __importStar(__webpack_require__(1));
 const core = __importStar(__webpack_require__(470));
 const exec = __importStar(__webpack_require__(986));
 const tc = __importStar(__webpack_require__(533));
+function installSops(version) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const baseUrl = 'https://github.com/mozilla/sops/releases/download';
+            const downloadPath = yield download(`${baseUrl}/${version}/sops-${version}.linux`);
+            yield install(downloadPath, 'sops');
+        }
+        catch (error) {
+            throw error;
+        }
+    });
+}
+exports.installSops = installSops;
 function installHelmPlugins(plugins) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
