@@ -20,7 +20,8 @@ export async function installSops(version: string): Promise<void> {
 export async function installHelmPlugins(plugins: string[]): Promise<void> {
   try {
     for (const plugin of plugins) {
-      await exec.exec(`helm plugin install ${plugin}`)
+      await exec.exec('helm', ['plugin', 'install', plugin])
+      await exec.exec('helm', [plugin, '--help'])
     }
   } catch (error) {
     throw error
@@ -52,7 +53,8 @@ export async function download(url: string): Promise<string> {
 
 export async function install(
   downloadPath: string,
-  filename: string
+  filename: string,
+  validatationArgs = ['--version']
 ): Promise<void> {
   try {
     const binPath = `${os.homedir}/bin`
@@ -61,6 +63,7 @@ export async function install(
     core.info(`Copy to: ${binPath}`)
     await exec.exec('chmod', ['+x', `${binPath}/${filename}`])
     core.addPath(binPath)
+    await exec.exec(filename, validatationArgs)
   } catch (error) {
     throw error
   }
