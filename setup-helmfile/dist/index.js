@@ -1499,10 +1499,10 @@ function run() {
         try {
             yield setup_1.installHelmPlugins([
                 'https://github.com/databus23/helm-diff',
-                'https://github.com/jkroepke/helm-secrets'
+                'https://github.com/zendesk/helm-secrets'
             ]);
-            const additionalPlugins = core.getInput("additional-helm-plugins");
-            if (additionalPlugins !== "") {
+            const additionalPlugins = core.getInput('additional-helm-plugins');
+            if (additionalPlugins !== '') {
                 setup_1.installHelmPlugins(additionalPlugins.split(','));
             }
             core.info('Helm plugins installed');

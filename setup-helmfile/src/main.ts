@@ -5,7 +5,7 @@ async function run(): Promise<void> {
   try {
     await installHelmPlugins([
       'https://github.com/databus23/helm-diff',
-      'https://github.com/jkroepke/helm-secrets'
+      'https://github.com/zendesk/helm-secrets'
     ])
     const additionalPlugins = core.getInput('additional-helm-plugins')
     if (additionalPlugins !== '') {
