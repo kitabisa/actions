@@ -12,7 +12,7 @@ export class RancherNamespace {
   accessKey: string
   secretkey: string
 
-  constructor(host:string, accessKey:string, secretkey:string) {
+  constructor(host: string, accessKey: string, secretkey: string) {
     this.host = host
     this.accessKey = accessKey
     this.secretkey = secretkey
@@ -27,22 +27,26 @@ export class RancherNamespace {
    * @returns boolean: namespace exist or not in a given project
    * @returns string: current namespace project ID
    */
-  async isNamespaceExistOnProject(clusterID: string, projectID: string, namespace: string): Promise<[boolean, string]> {
+  async isNamespaceExistOnProject(
+    clusterID: string,
+    projectID: string,
+    namespace: string
+  ): Promise<[boolean, string]> {
     try {
-      const url = this.host + '/v3/cluster/' + clusterID + '/namespaces?limit=-1&sort=name'
+      const url = `${this.host}/v3/cluster/${clusterID}/namespaces?limit=-1&sort=name`
       const config = {
         auth: {
           username: this.accessKey,
           password: this.secretkey
-        },
+        }
       }
 
       const response = await axios.get(url, config)
       for (const val of response.data.data) {
-        if (val.name == namespace) {
-          if (val.projectId == null) {
-            return [false, ""]
-          } else if (val.projectId == projectID) {
+        if (val.name === namespace) {
+          if (val.projectId === null) {
+            return [false, '']
+          } else if (val.projectId === projectID) {
             return [true, val.projectId]
           } else {
             return [false, val.projectId]
@@ -50,8 +54,7 @@ export class RancherNamespace {
         }
       }
 
-      throw new Error("namespace is not exist on any rancher project")
-
+      throw new Error('namespace is not exist on any rancher project')
     } catch (error) {
       throw error
     }
@@ -64,21 +67,24 @@ export class RancherNamespace {
    * @param namespace - Namespace that will be moved into the new project
    * @param newProjectID - New project ID
    */
-  async moveNamespace(clusterID: string, namespace: string, newProjectID: string): Promise<void> {
+  async moveNamespace(
+    clusterID: string,
+    namespace: string,
+    newProjectID: string
+  ): Promise<void> {
     try {
-      const url = this.host + '/v3/cluster/' + clusterID + '/namespaces/' + namespace + '?action=move'
+      const url = `${this.host}/v3/cluster/${clusterID}/namespaces/${namespace}?action=move`
       const config = {
         auth: {
           username: this.accessKey,
           password: this.secretkey
-        },
+        }
       }
       const data = {
         projectId: newProjectID
       }
 
       await axios.post(url, data, config)
-
     } catch (error) {
       throw error
     }
