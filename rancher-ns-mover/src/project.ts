@@ -12,7 +12,7 @@ export class RancherProject {
   accessKey: string
   secretkey: string
 
-  constructor(host:string, accessKey:string, secretkey:string) {
+  constructor(host: string, accessKey: string, secretkey: string) {
     this.host = host
     this.accessKey = accessKey
     this.secretkey = secretkey
@@ -27,24 +27,26 @@ export class RancherProject {
    * @returns boolean: project exist or not
    * @returns string: existing projectID (if project already exist)
    */
-  async isProjectExist(clusterID: string, projectName: string): Promise<[boolean, string]> {
+  async isProjectExist(
+    clusterID: string,
+    projectName: string
+  ): Promise<[boolean, string]> {
     try {
-      const url = this.host + '/v3/cluster/' + clusterID + '/projects'
+      const url = `${this.host}/v3/cluster/${clusterID}/projects`
       const config = {
         auth: {
           username: this.accessKey,
           password: this.secretkey
-        },
+        }
       }
 
       const response = await axios.get(url, config)
       for (const val of response.data.data) {
-        if (val.name == projectName) {
+        if (val.name === projectName) {
           return [true, val.id]
         }
       }
-      return [false, ""]
-
+      return [false, '']
     } catch (error) {
       throw error
     }
@@ -58,24 +60,23 @@ export class RancherProject {
    *
    * @returns created project ID
    */
-  async createProject(clusterID: string, name: string): Promise<string> {
+  async createProject(clusterID: string, projectName: string): Promise<string> {
     try {
-      const url = this.host + '/v3/projects?_replace=true'
+      const url = `${this.host}/v3/projects?_replace=true`
       const config = {
         auth: {
           username: this.accessKey,
           password: this.secretkey
-        },
+        }
       }
       const data = {
-        type: "project",
-        name: name,
+        type: 'project',
+        name: projectName,
         clusterId: clusterID
       }
 
       const response = await axios.post(url, data, config)
       return response.data.id
-
     } catch (error) {
       throw error
     }
