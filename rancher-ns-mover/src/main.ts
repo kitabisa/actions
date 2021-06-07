@@ -10,10 +10,13 @@ async function run(): Promise<void> {
     
     const clusterID = core.getInput('cluster-id')
     const projectName = core.getInput('project-name')
+    const namespace = core.getInput('namespace')
 
-    let projectObj = new rp.RancherProject(rancherHost, rancherAccessKey, rancherSecretKey)
+    const projectObj = new rp.RancherProject(rancherHost, rancherAccessKey, rancherSecretKey)
+    const namespaceObj = new rn.RancherNamespace(rancherHost, rancherAccessKey, rancherSecretKey)
+
+    // check project existence
     let [projectExist, projectID] = await projectObj.isProjectExist(clusterID, projectName)
-    console.log(projectExist + " ----- " + projectID)
 
     if (projectExist) {
       core.info("Project " + projectName + " is already exist")
@@ -23,6 +26,11 @@ async function run(): Promise<void> {
     }
 
     // migrate namespace
+    const [nsExist, currentNsProjectID] = await namespaceObj.isNamespaceExistOnProject(clusterID, projectID, namespace)
+    if (!nsExist) {
+      await namespaceObj.moveNamespace(clusterID, namespace, projectID)
+    }
+
   } catch (error) {
     core.setFailed(error.message)
   }

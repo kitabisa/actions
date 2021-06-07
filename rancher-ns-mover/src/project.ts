@@ -1,16 +1,16 @@
 import axios from 'axios'
 
-  /**
-   * Define class for modifying rancher project
-   *
-   * @param host - Rancher host
-   * @param accessKey - Rancher access key
-   * @param secretKey - Rancher secret key
-   */
+/**
+ * Define class for modifying rancher project
+ *
+ * @param host - Rancher host
+ * @param accessKey - Rancher access key
+ * @param secretKey - Rancher secret key
+ */
 export class RancherProject {
-  host:string;
-  accessKey:string;
-  secretkey:string;
+  host: string
+  accessKey: string
+  secretkey: string
 
   constructor(host:string, accessKey:string, secretkey:string) {
     this.host = host
@@ -23,7 +23,9 @@ export class RancherProject {
    *
    * @param clusterID - Rancher cluster ID
    * @param projectName - Project name to be checked
-   * @returns boolean: project exist or not, string: existing projectID (if project already exist)
+   *
+   * @returns boolean: project exist or not
+   * @returns string: existing projectID (if project already exist)
    */
   async isProjectExist(clusterID: string, projectName: string): Promise<[boolean, string]> {
     try {
@@ -53,6 +55,7 @@ export class RancherProject {
    *
    * @param clusterID - Rancher cluster ID
    * @param name - Project name that will be created
+   *
    * @returns created project ID
    */
   async createProject(clusterID: string, name: string): Promise<string> {
