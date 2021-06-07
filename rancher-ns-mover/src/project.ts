@@ -1,5 +1,12 @@
 import axios from 'axios'
 
+  /**
+   * Define class for modifying rancher project
+   *
+   * @param host - Rancher host
+   * @param accessKey - Rancher access key
+   * @param secretKey - Rancher secret key
+   */
 export class RancherProject {
   host:string;
   accessKey:string;
@@ -11,7 +18,13 @@ export class RancherProject {
     this.secretkey = secretkey
   }
 
-  // Check whetet any given project name is exist or not. Also return its id if exist.
+  /**
+   * Check wheter any given project name is exist or not. Also return its id if exist.
+   *
+   * @param clusterID - Rancher cluster ID
+   * @param projectName - Project name to be checked
+   * @returns boolean: project exist or not, string: existing projectID (if project already exist)
+   */
   async isProjectExist(clusterID: string, projectName: string): Promise<[boolean, string]> {
     try {
       const url = this.host + '/v3/cluster/' + clusterID + '/projects'
@@ -35,6 +48,13 @@ export class RancherProject {
     }
   }
 
+  /**
+   * Check wheter any given project name is exist or not. Also return its id if exist.
+   *
+   * @param clusterID - Rancher cluster ID
+   * @param name - Project name that will be created
+   * @returns created project ID
+   */
   async createProject(clusterID: string, name: string): Promise<string> {
     try {
       const url = this.host + '/v3/projects?_replace=true'
