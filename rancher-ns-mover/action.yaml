@@ -1,0 +1,31 @@
+name: "Rancher Namespacer Mover"
+author: "kitabisa"
+description: |-
+  This action will create new project in Rancher cluster and move a given namespace to newly created project.
+  If project name is already exist, no new project will be created and the namespace will be move to the existing project.
+
+inputs:
+  rancher-host:
+    description: |-
+      Rancher host URL.
+    required: true
+  rancher-secret-key:
+    description: |-
+      Rancher secret key.
+    required: true
+  cluster-id:
+    description: |-
+      Cluster ID for any certain rancher environment.
+    required: true
+  project-name:
+    description: |-
+      Rancher project name for this namespace.
+    required: true
+  namespace:
+    description: |-
+      Newly installed namespace.
+    required: true
+
+runs:
+  using: "node12"
+  main: "dist/index.js"
