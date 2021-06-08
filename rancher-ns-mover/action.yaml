@@ -9,6 +9,10 @@ inputs:
     description: |-
       Rancher host URL.
     required: true
+  rancher-access-key:
+    description: |-
+      Rancher access key.
+    required: true
   rancher-secret-key:
     description: |-
       Rancher secret key.
