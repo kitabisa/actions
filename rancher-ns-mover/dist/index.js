@@ -507,7 +507,7 @@ class RancherNamespace {
                         }
                     }
                 }
-                throw new Error('namespace is not exist on any rancher project');
+                throw new Error(`namespace ${namespace} is not exist on any rancher project`);
             }
             catch (error) {
                 throw error;
@@ -1116,7 +1116,7 @@ class RancherProject {
                 };
                 const response = yield axios_1.default.get(url, config);
                 for (const val of response.data.data) {
-                    if (val.name === projectName) {
+                    if (val.name.toLowerCase() === projectName.toLowerCase()) {
                         return [true, val.id];
                     }
                 }
@@ -1226,6 +1226,10 @@ function run() {
             const [nsExist] = yield namespaceObj.isNamespaceExistOnProject(clusterID, usableProjectID, namespace);
             if (!nsExist) {
                 yield namespaceObj.moveNamespace(clusterID, namespace, projectID);
+                core.info(`Namespace ${namespace} has been migrated to project ${projectName}`);
+            }
+            else {
+                core.info(`Namespace ${namespace} is already exist on project ${projectName}`);
             }
         }
         catch (error) {

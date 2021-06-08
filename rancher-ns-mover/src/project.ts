@@ -42,7 +42,7 @@ export class RancherProject {
 
       const response = await axios.get(url, config)
       for (const val of response.data.data) {
-        if (val.name === projectName) {
+        if (val.name.toLowerCase() === projectName.toLowerCase()) {
           return [true, val.id]
         }
       }
