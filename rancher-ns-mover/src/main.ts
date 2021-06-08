@@ -1,10 +1,13 @@
 import * as core from '@actions/core'
 import * as rp from './project'
 import * as rn from './namespace'
+import * as helpers from './helpers'
 
 async function run(): Promise<void> {
   try {
-    const rancherHost = core.getInput('rancher-host')
+    const rancherHost = await helpers.stripTrailingSlash(
+      core.getInput('rancher-host')
+    )
     const rancherAccessKey = core.getInput('rancher-access-key')
     const rancherSecretKey = core.getInput('rancher-secret-key')
 
