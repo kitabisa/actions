@@ -1,101 +1,40 @@
-<p align="center">
-  <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
-</p>
+# rancher-ns-mover
 
-# Create a JavaScript Action using TypeScript
+This github action will move kubernetes namespace location in a specific rancher project in a certain cluster.
 
-Use this template to bootstrap the creation of a TypeScript action.:rocket:
+## Flowchart
 
-This template includes compilation support, tests, a validation workflow, publishing, and versioning guidance.  
+![flowchart](img/flowchart.jpg)
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
-
-## Create an action from this template
-
-Click the `Use this Template` and provide the new repo details for your action
-
-## Code in Main
-
-Install the dependencies  
-```bash
-$ npm install
-```
-
-Build the typescript and package it for distribution
-```bash
-$ npm run build && npm run package
-```
-
-Run the tests :heavy_check_mark:  
-```bash
-$ npm test
-
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-
-...
-```
-
-## Change action.yml
-
-The action.yml contains defines the inputs and output for your action.
-
-Update the action.yml with your name, description, inputs and outputs for your action.
-
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
-
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-import * as core from '@actions/core';
-...
-
-async function run() {
-  try { 
-      ...
-  } 
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
-## Publish to a distribution branch
-
-Actions are run from GitHub repos so we will checkin the packed dist folder. 
-
-Then run [ncc](https://github.com/zeit/ncc) and push the results:
-```bash
-$ npm run package
-$ git add dist
-$ git commit -a -m "prod dependencies"
-$ git push origin releases/v1
-```
-
-Your action is now published! :rocket: 
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Validate
-
-You can now validate the action by referencing `./` in a workflow in your repo (see [test.yml](.github/workflows/test.yml))
+## Usage
 
 ```yaml
-uses: ./
-with:
-  milliseconds: 1000
+steps:
+- name: Configure namespace-project mapping in rancher
+  uses: kitabisa/actions/rancher-ns-mover@master
+  with:
+    rancher-host: 'https://www.rancher.host'
+    rancher-access-key: 'your-access-key'
+    rancher-secret-key: 'your-secret-key'
+    cluster-id: 'your-cluster-id'
+    project-name: 'your-project'
+    namespace: 'your-namespace'
+
 ```
 
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
+## Parameters
 
-## Usage:
+See [action.yml](action.yml)
 
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
+| Name                      | Description                                | Required/Optional      |
+| ------------------------- | -------------------------------------------| ---------------------- |
+| `rancher-host`            | Rancher host address                       | required               |
+| `rancher-access-key`      | Auth user access key                       | required               |
+| `rancher-secret-key`      | Auth user secret key                       | required               |
+| `cluster-id`              | Rancher cluster ID                         | required               |
+| `project-name`            | Project name defined in Rancher cluster    | required               |
+| `namespace`               | Kubernetes namespace                       | required               |
+
+# License
+
+The scripts and documentation in this project are released under the [Apache 2.0 License](LICENSE)

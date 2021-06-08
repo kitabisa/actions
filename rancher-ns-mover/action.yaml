@@ -19,11 +19,11 @@ inputs:
     required: true
   project-name:
     description: |-
-      Rancher project name for this namespace.
+      Rancher project name.
     required: true
   namespace:
     description: |-
-      Newly installed namespace.
+      Kubernetes namespace.
     required: true
 
 runs:
