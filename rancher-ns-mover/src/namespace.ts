@@ -1,4 +1,5 @@
 import axios from 'axios'
+import * as core from '@actions/core'
 
 /**
  * Define class for modifying namespace on rancher
@@ -58,6 +59,7 @@ export class RancherNamespace {
         `namespace ${namespace} is not exist on any rancher project`
       )
     } catch (error) {
+      core.error('Error happened when checking namespace exists or not!')
       throw error
     }
   }
@@ -88,6 +90,7 @@ export class RancherNamespace {
 
       await axios.post(url, data, config)
     } catch (error) {
+      core.error('Error happened when moving namespace to project!')
       throw error
     }
   }

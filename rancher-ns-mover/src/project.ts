@@ -1,4 +1,5 @@
 import axios from 'axios'
+import * as core from '@actions/core'
 
 /**
  * Define class for modifying rancher project
@@ -48,6 +49,7 @@ export class RancherProject {
       }
       return [false, '']
     } catch (error) {
+      core.error('Error happened when checking project exists or not!')
       throw error
     }
   }
@@ -62,7 +64,7 @@ export class RancherProject {
    */
   async createProject(clusterID: string, projectName: string): Promise<string> {
     try {
-      const url = `${this.host}/v3/projects?_replace=true`
+      const url = `${this.host}/v3/project?_replace=true`
       const config = {
         auth: {
           username: this.accessKey,
@@ -78,6 +80,7 @@ export class RancherProject {
       const response = await axios.post(url, data, config)
       return response.data.id
     } catch (error) {
+      core.error('Error happened when creating project!')
       throw error
     }
   }

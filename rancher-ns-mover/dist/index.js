@@ -446,6 +446,25 @@ module.exports = __webpack_require__(352);
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -461,6 +480,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RancherNamespace = void 0;
 const axios_1 = __importDefault(__webpack_require__(53));
+const core = __importStar(__webpack_require__(470));
 /**
  * Define class for modifying namespace on rancher
  *
@@ -510,6 +530,7 @@ class RancherNamespace {
                 throw new Error(`namespace ${namespace} is not exist on any rancher project`);
             }
             catch (error) {
+                core.error("Error happened when checking namespace exists or not!");
                 throw error;
             }
         });
@@ -537,6 +558,7 @@ class RancherNamespace {
                 yield axios_1.default.post(url, data, config);
             }
             catch (error) {
+                core.error("Error happened when moving namespace to project!");
                 throw error;
             }
         });
@@ -1067,6 +1089,25 @@ module.exports = CancelToken;
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -1082,6 +1123,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RancherProject = void 0;
 const axios_1 = __importDefault(__webpack_require__(53));
+const core = __importStar(__webpack_require__(470));
 /**
  * Define class for modifying rancher project
  *
@@ -1123,6 +1165,7 @@ class RancherProject {
                 return [false, ''];
             }
             catch (error) {
+                core.error("Error happened when checking project exists or not!");
                 throw error;
             }
         });
@@ -1138,7 +1181,7 @@ class RancherProject {
     createProject(clusterID, projectName) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const url = `${this.host}/v3/projects?_replace=true`;
+                const url = `${this.host}/v3/project?_replace=true`;
                 const config = {
                     auth: {
                         username: this.accessKey,
@@ -1154,6 +1197,7 @@ class RancherProject {
                 return response.data.id;
             }
             catch (error) {
+                core.error("Error happened when creating project!");
                 throw error;
             }
         });
@@ -1935,7 +1979,7 @@ exports.stripTrailingSlash = void 0;
  */
 function stripTrailingSlash(url) {
     return __awaiter(this, void 0, void 0, function* () {
-        return url.replace(/\/$/, "");
+        return url.replace(/\/$/, '');
     });
 }
 exports.stripTrailingSlash = stripTrailingSlash;
