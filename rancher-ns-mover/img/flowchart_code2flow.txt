@@ -2,9 +2,9 @@ start;
 deploy project;
 try {
     //run github-action rancher-assigner;
-    check business-unit project name;
+    check project name;
     if (project name exist?) {
-        create project name by business-unit;
+        create project;
     }
     get list of namespaces;
     if (namespace projectID != desired projectID) {
