@@ -54,7 +54,9 @@ export class RancherNamespace {
         }
       }
 
-      throw new Error('namespace is not exist on any rancher project')
+      throw new Error(
+        `namespace ${namespace} is not exist on any rancher project`
+      )
     } catch (error) {
       throw error
     }

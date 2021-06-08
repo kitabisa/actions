@@ -47,6 +47,13 @@ async function run(): Promise<void> {
 
     if (!nsExist) {
       await namespaceObj.moveNamespace(clusterID, namespace, projectID)
+      core.info(
+        `Namespace ${namespace} has been migrated to project ${projectName}`
+      )
+    } else {
+      core.info(
+        `Namespace ${namespace} is already exist on project ${projectName}`
+      )
     }
   } catch (error) {
     core.setFailed(error.message)
