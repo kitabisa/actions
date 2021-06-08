@@ -1201,10 +1201,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const rp = __importStar(__webpack_require__(155));
 const rn = __importStar(__webpack_require__(66));
+const helpers = __importStar(__webpack_require__(441));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const rancherHost = core.getInput('rancher-host');
+            const rancherHost = yield helpers.stripTrailingSlash(core.getInput('rancher-host'));
             const rancherAccessKey = core.getInput('rancher-access-key');
             const rancherSecretKey = core.getInput('rancher-secret-key');
             const clusterID = core.getInput('cluster-id');
@@ -1906,6 +1907,39 @@ function escapeProperty(s) {
         .replace(/,/g, '%2C');
 }
 //# sourceMappingURL=command.js.map
+
+/***/ }),
+
+/***/ 441:
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.stripTrailingSlash = void 0;
+/**
+ * Remove trailing space on a given string
+ * Example: www.google.com/ will be converted to www.google.com
+ *
+ * @param url - URL addess
+ * @return new URL address without trailing slash
+ */
+function stripTrailingSlash(url) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return url.replace(/\/$/, "");
+    });
+}
+exports.stripTrailingSlash = stripTrailingSlash;
+
 
 /***/ }),
 
