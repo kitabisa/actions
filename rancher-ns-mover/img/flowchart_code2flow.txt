@@ -1,0 +1,17 @@
+start;
+deploy project;
+try {
+    //run github-action rancher-assigner;
+    check business-unit project name;
+    if (project name exist?) {
+        create project name by business-unit;
+    }
+    get list of namespaces;
+    if (namespace projectID != desired projectID) {
+        move namespace to desired projectID;
+    }
+}
+catch (error auth) {
+  terminate & return error;
+}
+end;
