@@ -17,6 +17,7 @@
     "url": "git+https://github.com/kitabisa/actions.git"
   },
   "keywords": [
+    "actions",
     "rancher",
     "namespace",
     "project",

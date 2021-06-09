@@ -1,4 +1,4 @@
-name: "Rancher Namespacer Mover"
+name: "Rancher Namespace Mover"
 author: "kitabisa"
 description: |-
   This action will create new project in Rancher cluster and move a given namespace to newly created project.
