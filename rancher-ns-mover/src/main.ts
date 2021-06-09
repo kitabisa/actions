@@ -49,7 +49,7 @@ async function run(): Promise<void> {
     )
 
     if (!nsExist) {
-      await namespaceObj.moveNamespace(clusterID, namespace, projectID)
+      await namespaceObj.moveNamespace(clusterID, namespace, usableProjectID)
       core.info(
         `Namespace ${namespace} has been migrated to project ${projectName}`
       )

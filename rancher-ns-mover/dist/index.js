@@ -530,7 +530,7 @@ class RancherNamespace {
                 throw new Error(`namespace ${namespace} is not exist on any rancher project`);
             }
             catch (error) {
-                core.error("Error happened when checking namespace exists or not!");
+                core.error('Error happened when checking namespace exists or not!');
                 throw error;
             }
         });
@@ -558,7 +558,7 @@ class RancherNamespace {
                 yield axios_1.default.post(url, data, config);
             }
             catch (error) {
-                core.error("Error happened when moving namespace to project!");
+                core.error('Error happened when moving namespace to project!');
                 throw error;
             }
         });
@@ -1165,7 +1165,7 @@ class RancherProject {
                 return [false, ''];
             }
             catch (error) {
-                core.error("Error happened when checking project exists or not!");
+                core.error('Error happened when checking project exists or not!');
                 throw error;
             }
         });
@@ -1197,7 +1197,7 @@ class RancherProject {
                 return response.data.id;
             }
             catch (error) {
-                core.error("Error happened when creating project!");
+                core.error('Error happened when creating project!');
                 throw error;
             }
         });
@@ -1270,7 +1270,7 @@ function run() {
             // migrate namespace
             const [nsExist] = yield namespaceObj.isNamespaceExistOnProject(clusterID, usableProjectID, namespace);
             if (!nsExist) {
-                yield namespaceObj.moveNamespace(clusterID, namespace, projectID);
+                yield namespaceObj.moveNamespace(clusterID, namespace, usableProjectID);
                 core.info(`Namespace ${namespace} has been migrated to project ${projectName}`);
             }
             else {
