@@ -29,7 +29,7 @@ export async function installHelmPlugins(plugins: string[]): Promise<void> {
 
 export async function installHelmfile(version: string): Promise<void> {
   try {
-    const baseUrl = 'https://github.com/roboll/helmfile/releases/download'
+    const baseUrl = 'https://github.com/helmfile/helmfile/releases/download'
     const downloadPath = await download(
       `${baseUrl}/${version}/helmfile_linux_amd64`
     )
