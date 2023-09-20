@@ -29,7 +29,7 @@ export async function installHelmPlugins(plugins: string[]): Promise<void> {
 
 export async function installHelmfile(version: string): Promise<void> {
   try {
-    const baseUrl = 'https://github.com/roboll/helmfile/releases/download'
+    const baseUrl = 'https://github.com/helmfile/helmfile/releases/download'
     const downloadPath = await download(
       `${baseUrl}/${version}/helmfile_linux_amd64`
     )
@@ -53,7 +53,7 @@ export async function download(url: string): Promise<string> {
 export async function install(
   downloadPath: string,
   filename: string,
-  validatationArgs = ['--version']
+  validationArgs = ['--version']
 ): Promise<void> {
   try {
     const binPath = `${os.homedir}/bin`
@@ -62,7 +62,7 @@ export async function install(
     core.info(`Copy to: ${binPath}`)
     await exec.exec('chmod', ['+x', `${binPath}/${filename}`])
     core.addPath(binPath)
-    await exec.exec(filename, validatationArgs)
+    await exec.exec(filename, validationArgs)
   } catch (error) {
     throw error
   }

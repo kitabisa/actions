@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import {installSops, installHelmPlugins, installHelmfile} from './setup'
+import { installSops, installHelmPlugins, installHelmfile } from './setup'
 
 async function run(): Promise<void> {
   try {
@@ -11,9 +11,9 @@ async function run(): Promise<void> {
       `https://github.com/databus23/helm-diff --version ${helmDiffVersion}`,
       `https://github.com/jkroepke/helm-secrets --version ${helmSecretsVersion}`
     ])
-    const additionalPlugins = core.getInput('additional-helm-plugins')
-    if (additionalPlugins !== '') {
-      installHelmPlugins(additionalPlugins.split(','))
+    const helmPlugins = core.getInput('helm-plugins')
+    if (helmPlugins !== '') {
+      installHelmPlugins(helmPlugins.split(','))
     }
     core.info('Helm plugins installed')
 
