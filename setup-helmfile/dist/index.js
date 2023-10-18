@@ -1610,7 +1610,7 @@ function installHelmPlugins(plugins) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             for (const plugin of plugins) {
-                yield exec.exec(`helm plugin install ${plugin} &> /dev/null`);
+                yield exec.exec(`helm plugin install ${plugin}`);
             }
         }
         catch (error) {
