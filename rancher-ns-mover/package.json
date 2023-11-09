@@ -10,7 +10,8 @@
     "lint": "eslint src/**/*.ts",
     "package": "ncc build --source-map",
     "test": "jest",
-    "all": "yarn run build && yarn run format && yarn run lint && yarn run package"
+    "all": "yarn run build && yarn run format && yarn run lint && yarn run package",
+    "pre-commit": "yarn run all && git add dist/"
   },
   "repository": {
     "type": "git",
@@ -23,27 +24,5 @@
     "project",
     "cluster",
     "move"
-  ],
-  "author": "kitabisa",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "@actions/core": "^1.3.0",
-    "@actions/github": "^5.0.0",
-    "axios": "^0.21.1"
-  },
-  "devDependencies": {
-    "@types/jest": "^26.0.23",
-    "@types/node": "^15.0.1",
-    "@typescript-eslint/parser": "^4.22.1",
-    "@zeit/ncc": "^0.22.3",
-    "eslint": "^7.25.0",
-    "eslint-plugin-github": "^4.1.3",
-    "eslint-plugin-jest": "^24.3.6",
-    "husky": "^6.0.0",
-    "jest": "^26.4.0",
-    "jest-circus": "^26.4.0",
-    "prettier": "^2.2.1",
-    "ts-jest": "^26.5.5",
-    "typescript": "^4.2.4"
-  }
+  ]
 }

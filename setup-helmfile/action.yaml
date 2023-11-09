@@ -33,5 +33,5 @@ outputs:
     description: "Exit code of helmfile. Useful to handle diff --detailed-exitcode"
 
 runs:
-  using: "node16"
+  using: "node20"
   main: "dist/index.js"
